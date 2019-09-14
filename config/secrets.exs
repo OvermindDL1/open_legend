@@ -45,9 +45,9 @@ config :open_legend, OpenLegendWeb.Endpoint,
 # See `mix help release` for more information.
 
 signing_salt =
-  System.get_env("#{env}_SECRET_KEY_BASE") ||
+  System.get_env("#{env}_SIGNING_SALT") ||
     """
-    environment variable #{env}_}SECRET_KEY_BASE is missing.
+    environment variable #{env}_SIGNING_SALT is missing.
     You can generate one by calling: mix phx.gen.secret
     """
     |> if(Mix.env() == :dev, do: &IO.puts/1, else: &raise/1).()
