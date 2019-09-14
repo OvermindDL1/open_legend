@@ -11,10 +11,11 @@ defmodule OpenLegend.Application do
       # Start the Ecto repository
       OpenLegend.Repo,
       # Start the endpoint when the application starts
-      OpenLegendWeb.Endpoint
-      # Starts a worker by calling: OpenLegend.Worker.start_link(arg)
-      # {OpenLegend.Worker, arg},
+      OpenLegendWeb.Endpoint,
     ]
+
+    # Starts a worker by calling: OpenLegend.Worker.start_link(arg)
+    # {OpenLegend.Worker, arg},
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

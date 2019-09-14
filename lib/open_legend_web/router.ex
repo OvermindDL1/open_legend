@@ -18,9 +18,9 @@ defmodule OpenLegendWeb.Router do
 
     get "/", PageController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", OpenLegendWeb do
-  #   pipe_through :api
-  # end
 end
+
+# Other scopes may use custom stacks.
+# scope "/api", OpenLegendWeb do
+#   pipe_through :api
+# end

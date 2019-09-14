@@ -26,8 +26,8 @@ config :open_legend, OpenLegendWeb.Endpoint,
       "--mode",
       "development",
       "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__)
-    ]
+      cd: Path.expand("../assets", __DIR__),
+    ],
   ]
 
 # ## SSL Support
@@ -61,8 +61,8 @@ config :open_legend, OpenLegendWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/open_legend_web/{live,views}/.*(ex)$",
-      ~r"lib/open_legend_web/templates/.*(eex)$"
-    ]
+      ~r"lib/open_legend_web/templates/.*(eex)$",
+    ],
   ]
 
 # Do not include metadata nor timestamps in development logs

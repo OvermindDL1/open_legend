@@ -10,7 +10,7 @@ defmodule OpenLegend.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
     ]
   end
 
@@ -20,7 +20,7 @@ defmodule OpenLegend.MixProject do
   def application do
     [
       mod: {OpenLegend.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools],
     ]
   end
 
@@ -57,7 +57,8 @@ defmodule OpenLegend.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      format: ["fformat"],
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
     ]
   end
 end
