@@ -24,6 +24,7 @@
 # Whitelist source files
 !/lib/**/*.ex
 !/lib/**/*.eex
+!/lib/**/*.leex
 
 # Whitelist test files
 !/test/**/*.ex

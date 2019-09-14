@@ -56,6 +56,7 @@ config :open_legend, OpenLegendWeb.Endpoint,
       ~r"priv/gettext/.*(po)$",
       ~r"lib/open_legend_web/{live,views}/.*(ex)$",
       ~r"lib/open_legend_web/templates/.*(eex)$",
+      ~r{lib/my_app_web/live/.*(ex)$},
     ],
   ]
 

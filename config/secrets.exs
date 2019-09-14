@@ -52,7 +52,7 @@ signing_salt =
     """
     |> if(Mix.env() == :dev, do: &IO.puts/1, else: &raise/1).()
 
-config :open_legend, MyAppWeb.Endpoint,
+config :open_legend, OpenLegendWeb.Endpoint,
   live_view: [
     signing_salt: signing_salt,
   ]
