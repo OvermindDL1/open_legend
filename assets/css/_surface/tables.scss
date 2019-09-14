@@ -1,0 +1,183 @@
+@import './_imports/_variables', './_imports/_colors';
+
+
+.table--header {
+  color: lighten($black, 15%);
+  font-size: $font-med;
+  //line-height: $space-big * 1.3;
+  line-height: 125%;
+}
+
+
+
+table {
+  width: 100%;
+
+  &:not(.packed) {
+    >tr,
+    >thead>tr,
+    >tbody>tr {
+      line-height: $space-big * 1.3;
+    }
+  }
+
+  >tr,
+  >thead>tr,
+  >tbody>tr {
+    border-bottom: solid 1px lighten($grey, 30%);
+    font-size: $font-med + 1px;
+    // page-break-inside: avoid;
+    will-change: background;
+
+    &.packed {
+      line-height: 110%;
+
+      >td>[class^='btn'],
+      >th>[class^='btn'] {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.striped {
+    >tr,
+    >thead>tr,
+    >tbody>tr {
+      &:not(.table--header) {
+        &:nth-child(odd) {
+          background: rgba(0, 0, 0, .015);
+        }
+
+        &:hover {
+          //background: lighten($grey, 30%);
+          background: rgba(0, 0, 0, .05);
+        }
+      }
+    }
+  }
+  
+
+  &.packed {
+    line-height: 110%;
+
+    >tr>td>[class^='btn'],
+    >tr>th>[class^='btn'],
+    >thead>tr>td>[class^='btn'],
+    >thead>tr>th>[class^='btn'],
+    >tbody>tr>td>[class^='btn'],
+    >tbody>tr>th>[class^='btn'] {
+      margin-bottom: 0;
+    }
+  }
+
+  // .sticky:after,
+  // &.sticky-first>tr>td:first-child::after,
+  // &.sticky-first>tr>th:first-child::after,
+  // &.sticky-first>thead>tr>td:first-child:after,
+  // &.sticky-first>thead>tr>th:first-child:::after,
+  // &.sticky-first>tbody>tr>td:first-child::after,
+  // &.sticky-first>tbody>tr>th:first-child::after {
+  //   background-color: white;
+  //   content: attr(sticky);
+  //   left: 0;
+  //   position: absolute;
+  // }
+}
+
+td,
+th {
+  page-break-inside: avoid;
+
+  &:first-child {
+    padding-left: $space-big;
+    @media screen and (max-width: $media-med) {
+      padding-left: $space-big * .8;
+    }
+    @media screen and (max-width: $media-small) {
+      padding-left: $space-med;
+    }
+  }
+
+  &:last-child {
+    padding-right: $space-big;
+    @media screen and (max-width: $media-med) {
+      padding-right: $space-big * .8;
+    }
+    @media screen and (max-width: $media-small) {
+      padding-right: $space-med;
+    }
+  }
+
+  text-align: left; // By default
+
+  &.pad-left {
+    padding-left: $space-med;
+  }
+
+  &.pad-right {
+    padding-right: $space-med;
+  }
+
+  &.pad {
+    padding-left: $space-small;
+    padding-right: $space-small;
+  }
+
+  &.align-left {
+    text-align: left;
+  }
+
+  &.align-right {
+    text-align: right;
+  }
+
+  &.align-center {
+    text-align: center;
+  }
+
+  &.separator-right {
+    border-right: darkgray solid 1px;
+  }
+
+}
+
+@media print {
+  table {
+    &.striped {
+      >tr,
+      >thead>tr,
+      >tbody>tr {
+        &:not(.table--header) {
+          &:nth-child(odd) {
+            box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .1) !important; // This is basically 'background-color' for printing...
+            // Maybe this for webkit browsers?  This might need to go in `body {}` though...
+            // -webkit-print-color-adjust: exact;
+          }
+        }
+      }
+    }
+  }
+
+  tr {
+    line-height: 110%;
+  }
+
+  td,
+  th,
+  td:first-child,
+  th:first-child,
+  td:last-child,
+  th:last-child {
+    border: solid black;
+    border-width: 1px;
+    padding: 2px;
+
+    &.pad-left {
+      padding-left: 2px;
+    }
+
+    &.pad-right {
+      padding-right: 2px;
+    }
+  }
+}

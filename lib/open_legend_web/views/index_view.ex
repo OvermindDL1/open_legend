@@ -1,3 +1,3 @@
-defmodule OpenLegendWeb.PageView do
+defmodule OpenLegendWeb.IndexView do
   use OpenLegendWeb, :view
 end

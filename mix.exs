@@ -45,6 +45,8 @@ defmodule OpenLegend.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:freedom_formatter, "~> 1.1", only: :dev},
+      {:cachex, "~> 3.2"},
+      {:timex, "~> 3.6"},
     ]
   end
 

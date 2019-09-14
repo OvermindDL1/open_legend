@@ -15,6 +15,27 @@ defmodule OpenLegendWeb.ErrorHelpers do
   end
 
   @doc """
+  Gets a single formatted line of error text for a field
+  """
+  def error_string(%{errors: errors} = _form, field) do
+    :proplists.get_all_values(field, errors)
+    |> Enum.map(&translate_error/1)
+    |> Enum.join("; ")
+  end
+  def error_string(_form, _field) do
+    ""
+  end
+
+  @doc """
+  Gets a single formatted line of error text
+  """
+  def error_string(%{errors: errors}) do
+    errors
+    |> Enum.map(&"#{elem(&1, 0)}: #{translate_error(elem(&1, 1))}")
+    |> Enum.join("; ")
+  end
+
+  @doc """
   Translates an error message using gettext.
   """
   def translate_error({msg, opts}) do

@@ -1,0 +1,4 @@
+<section class="card container--vertical">
+  <%= f = form_for(@conn, Routes.games_path(@conn, :creating)) %>
+  </form>
+</section>

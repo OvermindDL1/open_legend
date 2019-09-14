@@ -17,7 +17,12 @@ defmodule OpenLegendWeb.Router do
   scope "/", OpenLegendWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", IndexController, :index
+
+    get "/game/create", GamesController, :create
+    post "/game/create", GamesController, :creating
+
+    get "/game/join/:game_name", GamesController, :join
   end
 end
 

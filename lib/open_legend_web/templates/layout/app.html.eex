@@ -4,27 +4,34 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>OpenLegend · Phoenix Framework</title>
+    <title><%= assigns[:title] || "Open-Legend" %></title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
-  <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-          </ul>
-        </nav>
-        <a href="http://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
-    </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= render @view_module, @view_template, assigns %>
+  <body><%= if !assigns[:fullscreen] do %>
+    <header class="container--center shadow print--hidden">
+      <a class="logo" style=background-image:url('<%= Routes.static_path(@conn, "/images/logo.svg") %>');" href="/"></a>
+      <h1 class="only--lm"><%= Surface.link(Routes.index_path(@conn, :index), :text, do: assigns[:title] || "Open-Legend") %></h1>
+      <h1 class="except--lm"><%= Surface.link(Routes.index_path(@conn, :index), :text, do: assigns[:shorttitle] || "OL") %></h1>
+      <div class="spacer"></div>
+      <input type="checkbox" id="top-nav-menu" class="nav--horizontal-responsive" style="display:none;">
+      <label for="top-nav-menu" class="icon--menu">
+        <%= Surface.icon_svg() %>
+      </label>
+      <nav class="header--right nav--horizontal">
+        <%#= Surface.link(Routes.games_path(@conn, :create), class: "nowrap no-margin", do: "Create New Game") %>
+      </nav>
+    </header><% end %>
+    <main class="sublayout g--12 no-margin-vertical <%= assigns[:fullscreen] || "content-has-header content-has-footer" %>print--no-margin print--no-padding">
+      <%= for {flash_type, flashes} <- get_flash(@conn), {flash_msg, idx} <- Enum.with_index(List.wrap(flashes)) do %>
+        <%= Surface.alert("flash-#{flash_type}-#{idx}", do: flash_msg, type: flash_type, class: "nudge--left nudge--right fade-in-from-top") %>
+      <% end %>
+      <div class="container--wrap container--justify no-nudge">
+        <%= render @view_module, @view_template, assigns %>
+      </div>
     </main>
+
+    <footer class="container--center shadow print--hidden">
+    </footer>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-defmodule OpenLegendWeb.PageController do
+defmodule OpenLegendWeb.IndexController do
   use OpenLegendWeb, :controller
 
   def index(conn, _params) do

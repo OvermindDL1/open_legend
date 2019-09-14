@@ -1,0 +1,17 @@
+@import './_imports/_variables';
+
+@for $i from 1 through $max-columns {
+  .columns--#{$i} {
+    columns: $i;
+    column-gap: $column-gap;
+  }
+
+  .columns--#{$i}0em {
+    columns: #{$i}0em;
+    column-gap: $column-gap;
+  }
+
+  .columns--gap-#{$i} {
+    column-gap: $i * $column-gap;
+  }
+}
