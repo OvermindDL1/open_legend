@@ -1,0 +1,26 @@
+<%= Surface.collapsible @id <> "-collapsible", title: gettext("Characters"), expanded: true, class: "container--vertical" do %>
+  <div class="container--horizontal container--justify">
+    <%= Surface.link("#", @sort == :all && :raised || :flat, do: "All", phx_click: "sort", phx_value_sort: "all") %>
+    <%= Surface.link("#", @sort == :pc && :raised || :flat, do: "PC", phx_click: "sort", phx_value_sort: "pc") %>
+    <%= Surface.link("#", @sort == :npc && :raised || :flat, do: "NPC", phx_click: "sort", phx_value_sort: "npc") %>
+  </div>
+  <%= f = form_for(@selected_characters_changeset, "#", class: "tile container--horizontal", phx_change: :select_characters) %>
+    <%= Surface.form_input(f, :multiple_select, :selected,
+      do: "Select Character",
+      class: "w--12",
+      size: 10,
+      values: case @sort do
+        :all -> @game.characters
+        :npc -> @game.non_player_characters
+        :pc -> @game.player_characters
+      end |> Enum.map(&{"#{elem(&1, 0)}#{if(elem(&1, 1).player, do: " (#{elem(&1, 1).player.name})")}", elem(&1, 0)}) |> Enum.sort()
+    ) %>
+  </form><%= for char <- @selected_characters_changeset.changes[:selected] || [], char = @game.characters[char] do %>
+  <div class="card container--vertical">
+    <div class="container--horizontal">
+      <h3><%= char.name %></h3>
+      <span class="item--grow"></span>
+      <%= char.player && char.player.name || "<NPC>" %>
+    </div>
+  </div><% end %>
+<% end %>

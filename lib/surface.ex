@@ -5,6 +5,7 @@ defmodule Surface.Dyn do
     end
   end
 end
+
 defmodule Surface do
   @moduledoc """
   Helpers to generate Surface-compatible HTML
@@ -417,9 +418,10 @@ defmodule Surface do
   def collapsible(unique_id, opts \\ [], [do: body]) do
     title = Keyword.get(opts, :title, humanize(unique_id))
     class = Keyword.get(opts, :class, "")
+    expanded = Keyword.get(opts, :expanded, false)
     ~E"""
-    <input type="checkbox" id="collapsible-<%= unique_id %>">
-    <label for="collapsible-<%= unique_id %>"><%= title %></label>
+    <input type="checkbox" id="collapsible-<%= unique_id %>" checked="<%= expanded %>">
+    <label for="collapsible-<%= unique_id %>" style="user-select:none;"><%= title %></label>
     <div class="<%= class %> collapsible-<%= unique_id %>-area">
       <%= body %>
     </div>

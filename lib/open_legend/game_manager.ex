@@ -68,7 +68,36 @@ defmodule OpenLegend.GameManager do
 
     results = case characters do
       nil -> results
-      :pc -> Repo.preload(results, player_characters: [:player])
+      :npc ->
+        Repo.preload(results, player_characters: from(c in Game.Characters, where: is_nil(c.removed_at) and is_nil(c.player_id)))
+        |> Enum.map(fn result ->
+          %{result|
+            non_player_characters: Map.new(result.non_player_characters, &{&1.name, &1})
+          }
+        end)
+      :pc ->
+        Repo.preload(results, player_characters: [:player])
+        |> Enum.map(fn result ->
+          %{result|
+            player_characters: Map.new(result.player_characters, &{&1.name, &1})
+          }
+        end)
+      :all ->
+        Repo.preload(results, characters: [:player])
+        |> Enum.map(fn result ->
+          %{result|
+            characters: Map.new(result.characters, &{&1.name, &1})
+          }
+        end)
+        |> Enum.map(fn result ->
+          {npc, pc} = Enum.split_with(result.characters, &(elem(&1, 1).player_id == nil))
+          npc = Map.new(npc)
+          pc = Map.new(pc)
+          %{result|
+            player_characters: pc,
+            non_player_characters: npc,
+          }
+        end)
     end
 
     results

@@ -2,7 +2,7 @@
   <h1><%= gettext("Join Existing Game") %></h1>
   <h2><%= "#{@game.slug} - #{@game.title}" %></h2>
 
-  <div class="container--wrap"><%= for character <- Enum.sort_by(@game.player_characters, & &1.name) do %>
+  <div class="container--wrap"><%= for {_name, character} <- Enum.sort(@game.player_characters) do %>
     <%= f = form_for(@conn, Routes.pc_path(@conn, :init, @game.slug, character.id), class: "card container--vertical container--center") %>
       <h3 class="no-margin"><%= gettext("Character: %{character}", character: character.name) %></h3>
       <h4 class="no-margin"><%= gettext("Currently Played by: %{player}", player: character.player.name) %></h4>
@@ -12,7 +12,7 @@
   <% end %>
   </div>
 
-  <%= f = form_for(@conn, Routes.gm_path(@conn, :init, @game.slug), class: "card g--12 container--vertical container--center") %>
+  <%= f = form_for(@conn, Routes.gm_path(@conn, :init, @game.slug, f: 1), class: "card g--12 container--vertical container--center") %>
     <h3 class="no-margin"><%= gettext("GameMaster Access") %></h3>
     <%= Surface.form_input(f, :password, :gm_key, id: "@gm@", do: "GameMaster Secret Key", required: true, class: "g--12") %>
     <%= Surface.submit("Submit") %>

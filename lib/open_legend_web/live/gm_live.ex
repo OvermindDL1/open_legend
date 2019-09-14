@@ -4,7 +4,7 @@ defmodule OpenLegendWeb.GMLive do
   alias OpenLegend.GameManager
 
   def render(assigns) do
-    Phoenix.View.render(OpenLegendWeb.GMView, "init.html", Map.put(assigns, :fullscreen, true))|>IO.inspect
+    Phoenix.View.render(OpenLegendWeb.GMView, "init.html", assigns)
   end
 
   def mount(%{game_slug: game_slug, gm_key: gm_key} = session, socket) do
@@ -14,8 +14,6 @@ defmodule OpenLegendWeb.GMLive do
       [%{gm_key: ^gm_key} = game] ->
         socket =
           socket
-          |> assign(:shorttitle, game_slug)
-          |> assign(:title, game.title)
           |> assign(:game, game)
 
         {:ok, socket}

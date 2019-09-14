@@ -11,7 +11,12 @@ defmodule OpenLegendWeb.GMController do
         |> redirect(to: Routes.index_path(conn, :index))
       [%{gm_key: ^gm_key} = _game] ->
         conn
-        |> live_render(OpenLegendWeb.GMLive, session: %{game_slug: game_slug, gm_key: gm_key})
+        |> put_layout({OpenLegendWeb.LayoutView, :base})
+        |> live_render(
+             OpenLegendWeb.GMLive,
+             session: %{game_slug: game_slug, gm_key: gm_key},
+             container: {:div, class: "container--wrap w--12"}
+           )
       [_game] ->
         conn
         |> put_flash(:error, gettext("Invalid GM key"))

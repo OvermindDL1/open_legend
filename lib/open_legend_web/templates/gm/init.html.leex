@@ -1,2 +1,30 @@
-<%= @game.title %>
-<button phx-click="bumpy"><%= @title %></button>
+<header class="container--center shadow print--hidden">
+  <a class="logo" style=background-image:url('<%= Routes.static_path(@socket, "/images/logo.svg") %>');" href="/"></a>
+  <h1 class="only--lm"><%= Surface.link(Routes.index_path(@socket, :index), :text, do: @game.title) %></h1>
+  <h1 class="except--lm"><%= Surface.link(Routes.index_path(@socket, :index), :text, do: @game.slug) %></h1>
+  <div class="spacer"></div>
+  <input type="checkbox" id="top-nav-menu" class="nav--horizontal-responsive" style="display:none;">
+  <label for="top-nav-menu" class="icon--menu">
+    <%= Surface.icon_svg() %>
+  </label>
+  <nav class="header--right nav--horizontal">
+    <div class="dropdown--lower-right">
+      <input type="checkbox" id="modules-dropdown">
+      <label for="modules-dropdown" class="dropdown-label">Menu</label>
+      <ul>
+        <li><%= Surface.link(Routes.games_path(@socket, :create), class: "nowrap no-margin", do: "Create New Game") %></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main class="sublayout g--12 no-margin-vertical content-has-header content-has-footer print--no-margin print--no-padding">
+  <%= live_render(@socket, OpenLegendWeb.GM.CharactersLive,
+    id: "characters",
+    session: %{game_slug: @game.slug, gm_key: @game.gm_key, id: "characters"},
+    container: {:div, class: "card g--4 g-m--6 g-s--12 no-pad"}
+  ) %>
+</main>
+
+<footer class="container--center shadow print--hidden">
+</footer>
