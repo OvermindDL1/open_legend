@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title><%= assigns[:title] || "Open-Legend" %></title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
-  </head>
-  <body><%= if !assigns[:fullscreen] do %>
+  </head><%# assigns = Map.put(assigns, :fullscreen, true) %>
+  <body><%= if (!assigns[:fullscreen])|>IO.inspect(label: :Blah) do %>
     <header class="container--center shadow print--hidden">
       <a class="logo" style=background-image:url('<%= Routes.static_path(@conn, "/images/logo.svg") %>');" href="/"></a>
       <h1 class="only--lm"><%= Surface.link(Routes.index_path(@conn, :index), :text, do: assigns[:title] || "Open-Legend") %></h1>
@@ -21,17 +21,16 @@
         <%#= Surface.link(Routes.games_path(@conn, :create), class: "nowrap no-margin", do: "Create New Game") %>
       </nav>
     </header><% end %>
-    <main class="sublayout g--12 no-margin-vertical <%= assigns[:fullscreen] || "content-has-header content-has-footer" %>print--no-margin print--no-padding">
+    <main class="sublayout g--12 no-margin-vertical <%= assigns[:fullscreen] || "content-has-header content-has-footer " %>print--no-margin print--no-padding">
       <%= for {flash_type, flashes} <- get_flash(@conn), {flash_msg, idx} <- Enum.with_index(List.wrap(flashes)) do %>
         <%= Surface.alert("flash-#{flash_type}-#{idx}", do: flash_msg, type: flash_type, class: "nudge--left nudge--right fade-in-from-top") %>
       <% end %>
       <div class="container--wrap container--justify no-nudge">
         <%= render @view_module, @view_template, assigns %>
       </div>
-    </main>
-
+    </main><%= if (!assigns[:fullscreen])|>IO.inspect(label: :Blah) do %>
     <footer class="container--center shadow print--hidden">
-    </footer>
+    </footer><% end %>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

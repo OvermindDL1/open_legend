@@ -1,4 +1,10 @@
 <section class="card container--vertical">
-  <%= f = form_for(@conn, Routes.games_path(@conn, :creating)) %>
+  <h1><%= gettext("Create New Game") %></h1>
+  <%= f = form_for(@changeset, Routes.games_path(@conn, :creating)) %>
+    <%= Surface.form_input(f, :text, :slug, do: gettext("Slug"), title: gettext("Short title of the game, becomes part of the URL, no spaces allowed, only a-zA-Z0-9_:- is allowed"), required: true, input_opts: [autofocus: true, pattern: "[a-zA-Z0-9_:-]{1,32}"]) %>
+    <%= Surface.form_input(f, :text, :title, do: gettext("Title"), title: gettext("Full title of the game"), required: true) %>
+    <%= Surface.form_input(f, :text, :gm_key, do: gettext("GameMaster Secret Key"), title: gettext("This is the secret key used to access the GameMaster Interface"), required: true) %>
+    <%= Surface.form_input(f, :checkbox, :public, do: gettext("Make Publicly Viewable")) %>
+    <%= Surface.submit(gettext("Create Game")) %>
   </form>
 </section>

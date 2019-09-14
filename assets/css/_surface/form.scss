@@ -108,17 +108,18 @@ input:not([type='checkbox']) {
       width: 100%;
     }
 
-    &:invalid + label {
+    &[required]:invalid + label::after {
+      content: ' (required)';
+    }
+
+    &:invalid + label,
+    &[pattern]:invalid + label {
       background-color: $accent;
       color: $accent-text;
 
       &::after {
         content: ' (invalid)';
       }
-    }
-
-    &[required]:invalid + label::after {
-      content: ' (required)';
     }
 
     &:disabled + label {
@@ -204,17 +205,18 @@ input:not([type='checkbox']) {
       padding: 0;
     }
 
-    &:invalid + label {
+    &[required]:invalid + label::after {
+      content: ' (required)';
+    }
+
+    &:invalid + label,
+    &[pattern]:invalid + label {
       background-color: $accent;
       color: $accent-text;
 
       &::after {
         content: ' (invalid)';
       }
-    }
-
-    &[required]:invalid + label::after {
-      content: ' (required)';
     }
 
     &:valid {

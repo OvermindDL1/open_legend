@@ -17,8 +17,17 @@ defmodule OpenLegend.GameManager do
       [%Game{}, ...]
 
   """
-  def list_games do
-    Repo.all(Game)
+  def list_games(opts \\ []) do
+    {public, []} = Keyword.pop(opts, :public, nil)
+
+    query = from(g in Game, where: is_nil(g.removed_at))
+
+    query = case public do
+      nil -> query
+      public when is_boolean(public) -> where(query, [g], g.public == ^public)
+    end
+
+    Repo.all(query)
   end
 
   @doc """
@@ -28,14 +37,42 @@ defmodule OpenLegend.GameManager do
 
   ## Examples
 
-      iex> get_game!(123)
+      iex> get_games(id: 123)
       %Game{}
 
-      iex> get_game!(456)
+      iex> get_games(id: 456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_game!(id), do: Repo.get!(Game, id)
+  def get_games(opts) do
+    {id, opts} = Keyword.pop(opts, :id, nil)
+    {slug, opts} = Keyword.pop(opts, :slug, nil)
+    {characters, opts} = Keyword.pop(opts, :characters, nil)
+    [] = opts
+
+    query = from(g in Game, as: :game, where: is_nil(g.removed_at))
+
+    query = if id == nil do
+      query
+    else
+      where(query, [g], g.id in ^List.wrap(id))
+    end
+
+    query = if slug == nil do
+      query
+    else
+      where(query, [g], g.slug in ^List.wrap(slug))
+    end
+
+    results = Repo.all(query)
+
+    results = case characters do
+      nil -> results
+      :pc -> Repo.preload(results, player_characters: [:player])
+    end
+
+    results
+  end
 
   @doc """
   Creates a game.

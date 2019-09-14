@@ -170,7 +170,7 @@ defmodule Surface do
   # Container div
   def form_input(f, type, id, opts) when type in [:text, :password, :number, :date, :time, :datetime_local, :month, :week, :email, :tel] do
     {nid, opts} = Keyword.pop(opts, :id, input_id(f, id)) # Node ID
-    nid = if(nid == :unique, do: "U" <> :erlang.unique_integer(), else: nid)
+    nid = if(nid == :unique, do: "U#{:erlang.unique_integer()}", else: nid)
     {eid, opts} = Keyword.pop(opts, :error_id, id)
     {required, opts} = Keyword.pop(opts, :required, false)
     {changeset, opts} = get_changeset_from_form_or_opts(f, opts)
@@ -242,7 +242,7 @@ defmodule Surface do
   end
   def form_input(f, type, id, opts) when type in [:file] do
     {nid, opts} = Keyword.pop(opts, :id, input_id(f, id))
-    nid = if(nid == :unique, do: "U" <> :erlang.unique_integer(), else: nid)
+    nid = if(nid == :unique, do: "U#{:erlang.unique_integer()}", else: nid)
     {required, opts} = Keyword.pop(opts, :required, false)
     {changeset, opts} = get_changeset_from_form_or_opts(f, opts)
     {multiple, opts} = Keyword.pop(opts, :multiple, false)
@@ -268,7 +268,7 @@ defmodule Surface do
   end
   def form_input(f, type, id, opts) when type in [:multiple_select, :select] do
     {nid, opts} = Keyword.pop(opts, :id, input_id(f, id))
-    nid = if(nid == :unique, do: "U" <> :erlang.unique_integer(), else: nid)
+    nid = if(nid == :unique, do: "U#{:erlang.unique_integer()}", else: nid)
     {class, opts} = Keyword.pop(opts, :class, "")
     {label_opts, opts} = Keyword.pop(opts, :label_opts, [])
     {label_do, opts} = Keyword.pop(opts, :do, humanize(id))
@@ -308,7 +308,7 @@ defmodule Surface do
   # Container label, probably all the above should migrate to this over time...
   def form_input(f, type, id, opts) when type in [:checkbox] do
     {nid, opts} = Keyword.pop(opts, :id, input_id(f, id))
-    nid = if(nid == :unique, do: "U" <> :erlang.unique_integer(), else: nid)
+    nid = if(nid == :unique, do: "U#{:erlang.unique_integer()}", else: nid)
     {required, opts} = Keyword.pop(opts, :required, nil)
     {value, opts} = Keyword.pop(opts, :value, nil)
     {title, opts} = Keyword.pop(opts, :title, nil)
@@ -329,7 +329,7 @@ defmodule Surface do
   end
   def form_input(f, type, id, opts) when type in [:datetime_interval] do
     {nid, opts} = Keyword.pop(opts, :id, input_id(f, id))
-    nid = if(nid == :unique, do: "U" <> :erlang.unique_integer(), else: nid) # TODO
+    nid = if(nid == :unique, do: "U#{:erlang.unique_integer()}", else: nid) # TODO
     {label_do, _opts} = Keyword.pop(opts, :do, humanize(id))
     data = case input_value(f, id) do
       %{months: _, days: _, secs: _} = m -> m
@@ -358,7 +358,7 @@ defmodule Surface do
   end
   def form_input(f, type, id, opts) when type in [:datetime_timezone] do
     {nid, opts} = Keyword.pop(opts, :id, input_id(f, id))
-    nid = if(nid == :unique, do: "U" <> :erlang.unique_integer(), else: nid) # TODO
+    nid = if(nid == :unique, do: "U#{:erlang.unique_integer()}", else: nid) # TODO
     {label_do, _opts} = Keyword.pop(opts, :do, humanize(id))
     datetime =
       input_value(f, id)

@@ -5,8 +5,8 @@
 
 <section class="card g--12 container--vertical container--center">
   <h2><%= gettext("Join Existing Game") %></h2>
-  <div class="container--vertical">
-    <%= Surface.link(Routes.games_path(@conn, :join, "TestGame"), do: "Test Game") %>
+  <div class="container--vertical"><%= for game <- Enum.sort_by(@games, &{&1.slug, &1.title}) do %>
+    <%= Surface.link(Routes.games_path(@conn, :join, game.slug), :link, do: "#{game.slug} - #{game.title}", style: "text-transform:initial") %><% end %>
   </div>
 </section>
 

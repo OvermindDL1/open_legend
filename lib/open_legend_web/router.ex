@@ -19,10 +19,13 @@ defmodule OpenLegendWeb.Router do
 
     get "/", IndexController, :index
 
-    get "/game/create", GamesController, :create
-    post "/game/create", GamesController, :creating
+    get "/games/create", GamesController, :create
+    post "/games/create", GamesController, :creating
 
-    get "/game/join/:game_name", GamesController, :join
+    get "/games/join/:game_slug", GamesController, :join
+
+    post "/game/:game_slug/gm", GMController, :init
+    post "/game/:game_slug/pc/:pc_name", PCController, :init
   end
 end
 
