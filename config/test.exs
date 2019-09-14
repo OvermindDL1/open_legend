@@ -16,3 +16,7 @@ config :open_legend, OpenLegendWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+# Finally import the config/secrets.exs which loads secrets
+# and configuration from environment variables.
+import_config "secrets.exs"

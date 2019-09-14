@@ -1,18 +1,7 @@
 use Mix.Config
 
 # Configure your database
-database_url =
-  System.get_env("DEV_DATABASE_URL") ||
-    IO.puts("""
-    environment variable DATABASE_URL is missing.
-    For example: ecto://USER:PASS@HOST/DATABASE
-    """)
-
-config :open_legend, OpenLegend.Repo,
-  # ssl: true,
-  url: database_url,
-  pool_size: String.to_integer(System.get_env("DEV_POOL_SIZE") || "10"),
-  show_sensitive_data_on_connection_error: true
+config :open_legend, OpenLegend.Repo, show_sensitive_data_on_connection_error: true
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -79,3 +68,7 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Finally import the config/secrets.exs which loads secrets
+# and configuration from environment variables.
+import_config "secrets.exs"

@@ -18,7 +18,7 @@
 !/config/config.exs
 !/config/dev.exs
 !/config/prod.exs
-!/config/prod.secret.exs
+!/config/secrets.exs
 !/config/test.exs
 
 # Whitelist source files
