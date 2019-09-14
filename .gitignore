@@ -1,0 +1,49 @@
+# Blacklist everything by default
+*
+
+# Whitelist directories (directories with no tracked files don't get committed regardless)
+!**/
+
+# Whitelist git metafiles
+!/.gitignore
+!/.gitattributes
+
+# Whitelist root project files
+!/.formatter.exs
+!/mix.exs
+!/mix.lock
+!/README.md
+
+# Whitelist configuration files
+!/config/config.exs
+!/config/dev.exs
+!/config/prod.exs
+!/config/prod.secret.exs
+!/config/test.exs
+
+# Whitelist source files
+!/lib/**/*.ex
+!/lib/**/*.eex
+
+# Whitelist test files
+!/test/**/*.ex
+!/test/**/*.exs
+
+# Whitelist localization files
+!/priv/gettext/**/*.pot
+!/priv/gettext/**/*.po
+
+# Whitelist repository migration files
+!/priv/repo/seeds.exs
+!/priv/repo/migrations/.formatter.exs
+!/priv/repo/migrations/*.exs
+
+# Whitelist assets
+!/assets/.babelrc
+!/assets/package.json
+!/assets/package-lock.json
+!/assets/webpack.config.js
+!/assets/css/**/*.css
+!/assets/js/**/*.js
+!/assets/static/**/*
+!/assets/vendor/**/*
